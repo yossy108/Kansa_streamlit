@@ -1,7 +1,6 @@
 # モジュールのインポート
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import streamlit as st
 
 import torch
@@ -13,11 +12,7 @@ from torchmetrics.functional import accuracy
 import torchsummary
 from torchsummary import summary
 from pytorch_lightning.loggers import CSVLogger
-from fastapi import FastAPI
-from pydantic import BaseModel
 import pickle
-import openpyxl
-import requests
 
 st.set_page_config(page_title="Doc Classification", layout="wide")
 st.title("csvファイルのアップロード")
