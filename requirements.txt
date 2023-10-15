@@ -1,0 +1,9 @@
+streamlit
+numpy
+pandas
+scikit-learn
+mecab-python3
+pytorch-lightning
+torch
+torchmetrics
+torchsummary
