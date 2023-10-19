@@ -1,10 +1,10 @@
-streamlit
+streamlit==1.26.0
 numpy
 pandas
 scikit-learn
 matplotlib
-mecab-python3
-pytorch-lightning
-torch
-torchmetrics
-torchsummary
+mecab-python3==1.0.8
+pytorch-lightning==2.0.9.post0
+torch==2.1.0
+torchmetrics==1.2.0
+torchsummary==1.5.1
