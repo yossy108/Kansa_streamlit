@@ -8,3 +8,4 @@ pytorch-lightning==2.0.9.post0
 torch==2.1.0
 torchmetrics==1.2.0
 torchsummary==1.5.1
+unidic-lite
