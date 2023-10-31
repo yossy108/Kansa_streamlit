@@ -41,15 +41,17 @@ net = Net().cpu().eval()
 net.load_state_dict(torch.load("kansa.pt", map_location=torch.device("cpu")))
 
 # Vectorizerのロード
-file_name = "file_name"
+file_name = "params"
 vectorizer = None
 with open(file_name, 'rb') as f:
     vectorizer = pickle.load(f)
 
 # 以上で、重み・構造・Vectorizerのロードが完了
 
-class DataFrameRequest(BaseModel):
-    data: str  # JSONデータを文字列として受け取る
+class DataFrameRequest(BaseModel):  # FastAPI側で受け取るデータの定義
+    columns: list[str]
+    index: list[int]
+    data: list[list]
 
 # トップページ
 @app.get('/')
@@ -59,8 +61,11 @@ async def index():
 # POSTが送信された時のと予測値の定義
 @app.post("/predict")
 async def make_predictions(dataframe_request: DataFrameRequest):
-    json_data = json.loads(dataframe_request.data)
-    df_json_data = pd.DataFrame.from_dict(json_data, orient='split')
+    print(dataframe_request)
+    # json_data = json.loads(dataframe_request.data)
+    # df_json_data = pd.DataFrame.from_dict(json_data, orient='split')
+    df_json_data = pd.DataFrame(dataframe_request.data, columns=dataframe_request.columns, index=dataframe_request.index)
+
     
     # 特徴量変換（分かち書き → Vectorizer）
     import MeCab
@@ -79,8 +84,10 @@ async def make_predictions(dataframe_request: DataFrameRequest):
             y = F.softmax(y, dim=1)
             y = torch.argmax(y)  # 最も高い確率のクラスを取得
             pred.append(y.item())  # 予測値をpredリストに追加。.item()メソッドはTensorをスカラーに変換するメソッド
+    print(pred)
     
     df_pred = df_json_data.copy()
     df_pred["予測文書"] = pred
 
     return {"result_dataframe": df_pred.to_json(orient='split')}
+    # return {"result": df_json_data.to_dict(orient="split")}

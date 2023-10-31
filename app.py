@@ -28,11 +28,14 @@ if st.sidebar.button("Predict"):
     
     # jsonファイルに変換
     df_json = df.to_json(force_ascii=False,orient="split")
+    print(df_json)
     
     # 予測の実行
-    response = requests.post("http://localhost:8000/predict", json={"dataframe_request": {"data": df_json}})
-    result_json = response.json()["result_dataframe"]
-    result_dataframe = pd.DataFrame.from_dict(json.loads(result_json), orient="split")
+    response = requests.post("http://localhost:8000/predict", json={"dataframe_request": {"data": df_json}}) # FastAPIにデータを送信し（.postメソッド）、FastAPIから返ってきたデータをresponseに格納
+    print(response)
+    result_json = response.json()["result_dataframe"] # FastAPIから返ってきたデータをjson形式に変換
+    print(result_json)
+    result_dataframe = pd.DataFrame.from_dict(json.loads(result_json), orient="split") # jsonファイルをデータフレーム形式に変換
 
     # st.markdown("#### 予測ラベル")
     # st.table(df_pred)
