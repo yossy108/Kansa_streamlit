@@ -62,8 +62,6 @@ async def index():
 @app.post("/predict")
 async def make_predictions(dataframe_request: DataFrameRequest):
     print(dataframe_request)
-    # json_data = json.loads(dataframe_request.data)
-    # df_json_data = pd.DataFrame.from_dict(json_data, orient='split')
     df_json_data = pd.DataFrame(dataframe_request.data, columns=dataframe_request.columns, index=dataframe_request.index)
 
     
@@ -90,4 +88,3 @@ async def make_predictions(dataframe_request: DataFrameRequest):
     df_pred["予測文書"] = pred
 
     return {"result_dataframe": df_pred.to_json(orient='split')}
-    # return {"result": df_json_data.to_dict(orient="split")}
