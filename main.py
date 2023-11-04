@@ -8,11 +8,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import pytorch_lightning as pl
-import torchmetrics
 from torchmetrics.functional import accuracy
-import torchsummary
-from torchsummary import summary
-from pytorch_lightning.loggers import CSVLogger
 from fastapi import FastAPI
 from pydantic import BaseModel
 import pickle
