@@ -8,6 +8,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import pytorch_lightning as pl
+import torchmetrics
 from torchmetrics.functional import accuracy
 from fastapi import FastAPI
 from pydantic import BaseModel
